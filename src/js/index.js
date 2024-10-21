@@ -44,12 +44,11 @@ const shipping = {
   const revised = data.map((e) => {
     return {
       ...e,
-      totalCost:
-        e.shipping === null
-          ? shipping[e.category](e.cost)
-          : ["petfood", "smartphones"].includes(e.category)
-          ? tax.tax12(e.shipping)(e.cost)
-          : tax.tax18(e.shipping)(e.cost),
+      totalCost: !e.shipping
+        ? shipping[e.category](e.cost)
+        : ["petfood", "smartphones"].includes(e.category)
+        ? tax.tax12(e.shipping)(e.cost)
+        : tax.tax18(e.shipping)(e.cost),
     };
   });
   renderRows(revised);
